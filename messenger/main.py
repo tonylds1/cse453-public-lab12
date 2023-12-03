@@ -55,18 +55,23 @@ def session(messages):
     username = simple_prompt("\nWhat is your username? ")
     password = simple_prompt("What is your password? ")
 
-    interact_ = interact.Interact(username, password, messages)
+    try:
+      interact_ = interact.Interact(username, password, messages)
+    except Exception as error:
+      print(f"ERROR! {error.args[0]}\nExiting session, goodbye.\n")
+      return
+  
     print(f"\nWelcome, {username}. Please select an option:\n")
     display_options()
 
     options = {
-        "o": "print('Options:'); display_options();",
-        "d": "interact_.display();",
-        "s": "interact_.show();",
-        "a": "interact_.add();",
-        "u": "interact_.update();",
-        "r": "interact_.remove();",
-        "l": "print(f'Goodbye, {username}{chr(10)}'); close_session();"
+      "o": "print('Options:'); display_options();",
+      "d": "interact_.display();",
+      "s": "interact_.show();",
+      "a": "interact_.add();",
+      "u": "interact_.update();",
+      "r": "interact_.remove();",
+      "l": "print(f'Goodbye, {username}{chr(10)}'); close_session();"
     }
 
     while session_open:
